@@ -46,8 +46,8 @@ const Home = () => {
 								<button
 									className="bg-transparent border-0"
 									type="button"
-									onClick={() => {
-										list.splice();
+									onClick={(i) => {
+										list.splice(i, 1);
 									}}>
 									X
 								</button>
