@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-
-
 const Home = () => {
-	const [input, setInput] = useState=("");
+	const [input, setInput] = useState("");
 	const [list, setList] = useState([]);
+	const [hoverOn, setHoverOn] = useState(false);
 
 	return (
 		<div className="container ">
@@ -20,18 +19,48 @@ const Home = () => {
 						aria-describedby="emailHelp"
 						placeholder="enter task"
 						value={input}
-						onChange= {(e) => {setInput(e.target.value)}}
+						onChange={(e) => {
+							setInput(e.target.value);
+						}}
 					/>
-					<button type="button" class="btn btn-primary" onClick={() => setList([...list], input)}>
+					<button
+						type="button"
+						className="btn btn-light"
+						onClick={() => {
+							setList([...list, input]);
+							setInput("");
+						}}>
 						Submit
 					</button>
 				</div>
 			</div>
-			{list.map((e,i)=>{
-				<div key={i} className="task">
-					{e}
-				</div>
+			{list.map((e, i) => {
+				return (
+					<div key={i} className="row task mx-auto w-25 border">
+						<div className="col-10">{e}</div>
+						<div
+							className="col-2"
+							onMouseEnter={() => setHoverOn(true)}
+							onMouseLeave={() => setHoverOn(false)}>
+							{hoverOn && (
+								<button
+									className="bg-transparent border-0"
+									type="button"
+									onClick={() => {
+										list.splice();
+									}}>
+									X
+								</button>
+							)}
+						</div>
+					</div>
+				);
 			})}
+			<div className="mx-auto mb-3 w-25 border bg-light counter">
+				{list.length > 0
+					? list.length + " items"
+					: "No tasks, add a task"}
+			</div>
 		</div>
 	);
 };
