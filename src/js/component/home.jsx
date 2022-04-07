@@ -1,9 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
 	const [input, setInput] = useState("");
 	const [list, setList] = useState([]);
 	const [hoverOn, setHoverOn] = useState(false);
+
+	useEffect(()=>{
+
+	})
+
+	const getTasks = async () => {
+		const response = await fetch("http://assets.breatheco.de/apis/fake/todos/user/aemem")
+		const data = await response.json();
+		
+	}
+
+	const addTasks = async () => {
+		const response = await fetch("http://assets.breatheco.de/apis/fake/todos/user/aemem", {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data)
+		})
+		const data = await response.json();
+		
+	}
+
+
 
 	return (
 		<div className="container ">
@@ -40,9 +64,9 @@ const Home = () => {
 						<div className="col-10">{e}</div>
 						<div
 							className="col-2"
-							onMouseEnter={() => setHoverOn(true)}
-							onMouseLeave={() => setHoverOn(false)}>
-							{hoverOn && (
+							onMouseEnter={() => setHoverOn(i)}
+							onMouseLeave={() => setHoverOn(null)}>
+							{hoverOn == i && (
 								<button
 									className="bg-transparent border-0"
 									type="button"
